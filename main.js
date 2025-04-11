@@ -243,13 +243,13 @@ loader.load('ghost.glb', (gltf) => {
   ghostObject = gltf.scene;
   
   // Ghost-Objekt initial unsichtbar machen
-  ghostObject.visible = false;
+  ghostObject.visible = true;
   
   // Erstelle Uniforms für den Fresnel-Effekt plus zusätzliche für Animation:
   ghostFresnelUniforms = {
-    mFresnelBias: { value: 0.2 },
-    mFresnelScale: { value: 4 },
-    mFresnelPower: { value: 4 },
+    mFresnelBias: { value: 2.2 },
+    mFresnelScale: { value: 6 },
+    mFresnelPower: { value: 3.5 },
     uTime: { value: 0.0 },
     uOpacity: { value: 0.8 }
   };
@@ -295,7 +295,7 @@ loader.load('ghost.glb', (gltf) => {
   });
   
   // Setze die Startposition
-  ghostObject.position.y = 0;
+  ghostObject.position.y = 1;
   scene.add(ghostObject);
   
   // Erstelle einen AnimationMixer, falls ghost.glb Animationen enthält (optional)
@@ -676,7 +676,7 @@ renderer.domElement.addEventListener('pointermove', (event) => {
     const scale = 1 / 100;
     let newY = ghostDragData.startGhostY + deltaY * scale;
     // Begrenze den Bewegungsbereich des Ghost, z. B. zwischen -2 und 2
-    newY = THREE.MathUtils.clamp(newY, -2, 2);
+    newY = THREE.MathUtils.clamp(newY, -20, 20);
     ghostObject.position.y = newY;
     
     // Mappe newY von [-2, 2] auf einen normierten Bereich [0, 1]:
